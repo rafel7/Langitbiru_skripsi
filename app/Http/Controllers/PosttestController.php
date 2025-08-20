@@ -44,12 +44,25 @@ class PosttestController extends Controller
 
         $totalQuestions = count($request->except('_token'));
 
+
+        $questions = $this->getQuestions();
+        $questionMap = collect($questions)->keyBy('id');
+
         $score = 0;
         foreach ($request->except('_token') as $key => $value) {
             if (str_starts_with($key, 'question_')) {
-                $score += (int) $value;
+                $questionId = (int) str_replace('question_', '', $key);
+                $type = $questionMap[$questionId]['type'] ?? 'likert';
+
+                if ($type === 'pg') {
+                    $correctAnswer = $questionMap[$questionId]['answer'] ?? null;
+                    $score += ($value === $correctAnswer) ? 5 : 0;
+                } elseif ($type === 'likert') {
+                    $score += (int) $value;
+                }
             }
         }
+
 
         //$nilai100 = round(($score / ($totalQuestions * 5)) * 100);
 
@@ -74,62 +87,112 @@ class PosttestController extends Controller
         return [
             [
                 'id' => 1,
-                'question' => 'Saya tahu bahwa asap dari kendaraan pribadi (motor dan mobil) adalah sumber utama polusi udara di kota besar.',
+                'type' => 'pg',
+                'question' => 'Apa indikator udara yang paling sering digunakan untuk mengukur kualitas udara?',
+                'options' => [
+                    'a' => 'PM10',
+                    'b' => 'PM2,5',
+                    'c' => 'CO2',
+                    'd' => 'CO',
+                ],
+                'answer' => 'b',
             ],
             [
                 'id' => 2,
-                'question' => 'Saya memahami bahwa polusi udara dapat menyebabkan masalah kesehatan serius seperti Infeksi Saluran Pernapasan Akut (ISPA) dan asma.',
+                'type' => 'pg',
+                'question' => 'Apa hubungan antara kualitas udara dan kondisi cuaca?',
+                'options' => [
+                    'a' => 'Hujan memperburuk polusi karena membawa partikel ke permukaan',
+                    'b' => 'Angin dapat menyebarkan polusi ke wilayah lain',
+                    'c' => 'Cuaca dingin mengurangi pembentukan ozon troposferik',
+                    'd' => 'Cuaca dingin menambah pembentukan ozon troposferik',
+                ],
+                'answer' => 'b',
             ],
             [
                 'id' => 3,
-                'question' => 'Saya tahu bahwa aktivitas membakar sampah, terutama sampah plastik, melepaskan zat-zat berbahaya ke udara.',
+                'type' => 'pg',
+                'question' => 'Manakah alat yang mengukur kualitas udara?',
+                'options' => [
+                    'a' => 'Airsensor',
+                    'b' => 'Currentsensor',
+                    'c' => 'Barometer',
+                    'd' => 'Hygrometer',
+                ],
+                'answer' => 'a',
             ],
             [
                 'id' => 4,
-                'question' => 'Saya mengerti bahwa memilih untuk menggunakan transportasi umum (seperti KRL atau Transjakarta) adalah salah satu cara efektif untuk mengurangi polusi udara.'
+                'type' => 'pg',
+                'question' => 'Apa kontributor utama polusi di Jakarta?',
+                'options' => [
+                    'a' => 'Pembakaran batu bara',
+                    'b' => 'Pembakaran terbuka',
+                    'c' => 'Aktivitas konstruksi',
+                    'd' => 'Asap kendaraan',
+                ],
+                'answer' => 'd',
             ],
             [
                 'id' => 5,
-                'question' => 'Saya tahu bahwa keberadaan pohon dan ruang terbuka hijau di perkotaan penting untuk membantu menyaring udara kotor.'
+                'type' => 'pg',
+                'question' => 'Mengapa anak-anak lebih rentan terhadap dampak polusi udara dibanding orang dewasa??',
+                'options' => [
+                    'a' => 'Tingkat metabolisme anak lebih rendah sehingga penyerapan polutan meningkat',
+                    'b' => 'Tekanan saat menghirup udara lebih tinggi',
+                    'c' => 'Anak-anak jarang terpapar sinar matahari',
+                    'd' => 'Frekuensi pernapasan anak lebih tinggi',
+                ],
+                'answer' => 'd',
             ],
             [
                 'id' => 6,
+                'type' => 'likert',
                 'question' => 'Saya merasa khawatir dengan dampak jangka panjang polusi udara terhadap kesehatan saya dan keluarga.'
             ],
             [
                 'id' => 7,
+                'type' => 'likert',
                 'question' => 'Saya merasa tidak nyaman dan terganggu ketika berada di jalanan yang penuh dengan asap kendaraan.'
             ],
             [
                 'id' => 8,
+                'type' => 'likert',
                 'question' => 'Saya percaya bahwa setiap orang, termasuk saya, memiliki kewajiban moral untuk menjaga kebersihan udara.'
             ],
             [
                 'id' => 9,
+                'type' => 'likert',
                 'question' => 'Saya mendukung kebijakan pemerintah yang lebih ketat, seperti pembatasan usia kendaraan atau perluasan zona ganjil-genap, untuk menekan polusi'
             ],
             [
                 'id' => 10,
+                'type' => 'likert',
                 'question' => 'Merasa bangga atau senang ketika melakukan tindakan yang ramah lingkungan (misalnya, memilih bersepeda daripada naik motor) adalah hal yang wajar bagi saya.'
             ],
             [
                 'id' => 11,
+                'type' => 'likert',
                 'question' => 'Saya berniat untuk lebih sering menggunakan transportasi umum atau berjalan kaki untuk perjalanan yang memungkinkan.',
             ],
             [
                 'id' => 12,
+                'type' => 'likert',
                 'question' => 'Dalam sebulan terakhir, saya telah secara sadar memilih alternatif selain kendaraan pribadi (misal: jalan kaki, sepeda, KRL, ojek online) untuk mengurangi jejak emisi saya.',
             ],
             [
                 'id' => 13,
+                'type' => 'likert',
                 'question' => 'Saya bersedia membayar sedikit lebih mahal untuk produk atau layanan yang jelas-jelas lebih ramah lingkungan.',
             ],
             [
                 'id' => 14,
+                'type' => 'likert',
                 'question' => 'Saya secara aktif mencari informasi atau tips tentang cara hidup yang lebih ramah lingkungan untuk mengurangi polusi.',
             ],
             [
                 'id' => 15,
+                'type' => 'likert',
                 'question' => 'Saya akan mempertimbangkan untuk menegur secara sopan atau memberikan edukasi kepada orang di sekitar saya yang melakukan tindakan pencemaran udara (misalnya, membakar sampah).',
             ],
 

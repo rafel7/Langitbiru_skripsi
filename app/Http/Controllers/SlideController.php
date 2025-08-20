@@ -52,6 +52,10 @@ class SlideController extends Controller
         $next = $currentIndex !== false && isset($slides[$currentIndex + 1]) ? $slides[$currentIndex + 1] : null;
         $prev = $currentIndex !== false && isset($slides[$currentIndex - 1]) ? $slides[$currentIndex - 1] : null;
 
+        $userId = Auth::id();
+        $status = DB::table('status_tugas')->where('user_id', $userId)->first();
+        $statusPembelajaran = $status->pembelajaran ?? 0; // fallback 0 jika null
+
 
 
         // Ambil nama file tanpa .pdf
@@ -60,6 +64,6 @@ class SlideController extends Controller
         // Jika nama ada di daftar, pakai judul mapping, kalau nggak pakai nama file
         $judul = $titles[$name] ?? $name;
 
-        return view('slides.show', compact('filename', 'judul', 'next', 'prev'));
+        return view('slides.show', compact('filename', 'judul', 'next', 'prev', 'statusPembelajaran'));
     }
 }

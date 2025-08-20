@@ -30,8 +30,8 @@
 
         .nama {
             position: absolute;
-            font-size: 36px;
-            font-weight: bold;
+            font-size: 48px;
+            
             text-align: center;
             top: 00%;
             left: 50%;

@@ -44,17 +44,17 @@
 
                     $userBadge = Badge::where('user_id', auth()->id())->first();
 
-                    $badge1 = 'badge-default.png';
+                    //$badge1 = 'badge-default.png';
                     $badge2 = 'badge-default.png';
                     $badge3 = 'badge-default.png';
                     $badge4 = 'badge-default.png';
 
                     if ($userBadge) {
                     // Badge 1 - lampu
-                    if ($userBadge->badge1 === 0) $badge1 = '0.png';
-                    elseif ($userBadge->badge1 === 1) $badge1 = 'lampu1.png';
-                    elseif ($userBadge->badge1 === 2) $badge1 = 'lampu2.png';
-                    elseif ($userBadge->badge1 === 3) $badge1 = 'lampu3.png';
+                    //if ($userBadge->badge1 === 0) $badge1 = '0.png';
+                    //elseif ($userBadge->badge1 === 1) $badge1 = 'lampu1.png';
+                    //elseif ($userBadge->badge1 === 2) $badge1 = 'lampu2.png';
+                    //elseif ($userBadge->badge1 === 3) $badge1 = 'lampu3.png';
 
                     // Badge 2 - trophy
                     if ($userBadge->badge2 === 0) $badge2 = '0.png';
@@ -75,8 +75,8 @@
                     elseif ($userBadge->badge4 === 3) $badge4 = 'medal3.png';
                     }
 
-                    $badgeLabels = ['Insight Seeker', 'Game Master', 'Speedster', 'Collector'];
-                    $badgeImages = [$badge1, $badge2, $badge3, $badge4];
+                    $badgeLabels = [ 'Game Master', 'Speedster', 'Collector'];
+                    $badgeImages = [ $badge2, $badge3, $badge4];
                     @endphp
 
 
@@ -92,16 +92,11 @@
                 <details style="margin-top: 50px; text-align: left; font-size: 14px;">
                     <summary style="cursor: pointer; font-weight: 600; text-align:center;">Penjelasan Badge</summary>
                     <ul style="margin-top: 8px; padding-left: 20px;">
-                        <li><strong>Insight Seeker : Melihat video pembelajaran</strong> <br>
-                            Bronze : 50% durasi video<br>
-                            Silver : 65% durasi video<br>
-                            Gold : 80% durasi video
 
-                        </li>
                         <li><strong>Game Master : Menyelesaikan semua game dengan nilai tertentu</strong><br>
-                            Bronze : 30 poin untuk setiap game<br>
-                            Silver : 40 poin untuk setiap game<br>
-                            Gold : 50 poin untuk setiap game<br>
+                            Bronze : 120 poin untuk setiap game<br>
+                            Silver : 160 poin untuk setiap game<br>
+                            Gold : 200 poin untuk setiap game<br>
                         </li>
                         <li><strong>Speedster: Menyelesaikan game dengan sisa waktu tertentu</strong><br>
                             Bronze: 50% sisa waktu untuk setiap game<br>
@@ -109,9 +104,9 @@
                             Gold:80% sisa waktu untuk setiap game
                         </li>
                         <li><strong>Collector : Mendapatkan badge dengan jumlah tertentu</strong>
-                            <br> Bronze : 3 Badge Bronze
-                            <br> Silver : 3 Badge Silver
-                            <br> Gold : 3 Badge Gold
+                            <br> Bronze : 2 Badge Bronze
+                            <br> Silver : 2 Badge Silver
+                            <br> Gold : 2 Badge Gold
                         </li>
                     </ul>
                 </details>

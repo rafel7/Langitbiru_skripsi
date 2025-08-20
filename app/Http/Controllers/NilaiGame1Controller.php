@@ -12,6 +12,16 @@ class NilaiGame1Controller extends Controller
 {
     public function index()
     {
+        $userId = Auth::id();
+
+        $statusTugas = DB::table('status_tugas')
+            ->where('user_id', $userId)
+            ->first();
+
+        if ($statusTugas && $statusTugas->cari_kata == 1) {
+            return redirect()->route('dashboard.index')
+                ->with('error', 'Kamu sudah mengerjakan carikata.');
+        }
         return view('game.wordsearch');
     }
 

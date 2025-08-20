@@ -20,8 +20,15 @@ class LoginController extends Controller
             $user = Auth::user();
             Log::info('User logged in:', ['nim' => $request->nim, 'status' => $user->status]);
 
+            // Cek apakah NIM adalah "admin"
+            if ($user->nim === '0') {
+                return redirect('/admin');
+            }
+
+
+
             if ($user->status == 1) {
-                return redirect()->intended('/admin');
+                return redirect('/admin');
             } else {
                 return redirect()->intended('/dashboard');
             }

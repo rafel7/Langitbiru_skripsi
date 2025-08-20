@@ -25,7 +25,18 @@ class TekaTekiSilangController extends Controller
         ];
         $userId = Auth::id();
         $nilai = Nilai::where('user_id', $userId)->first();
-        $waktusisa = $nilai?->waktu_game_2 ?? '00:05:00';
+
+        $statusTugas = DB::table('status_tugas')
+            ->where('user_id', $userId)
+            ->first();
+
+        if ($statusTugas && $statusTugas->tts == 1) {
+            return redirect()->route('dashboard.index')
+                ->with('error', 'Kamu sudah mengerjakan TTS.');
+        }
+
+
+        $waktusisa = $nilai?->waktu_game_2 ?? '00:02:00';
 
         $filled = [];
         $answers = [];
@@ -41,8 +52,8 @@ class TekaTekiSilangController extends Controller
         $map = [
             1 => ['direction' => 'across', 'start' => [1, 4], 'answer' => 'SMOG'],
             2 => ['direction' => 'down',   'start' => [1, 5], 'answer' => 'MASKER'],
-            3 => ['direction' => 'across',   'start' => [3, 1], 'answer' => 'AQIUSMETER'],
-            4 => ['direction' => 'down', 'start' => [3, 1], 'answer' => 'ASAP'],
+            3 => ['direction' => 'across',   'start' => [3, 2], 'answer' => 'AIRSENSOR'],
+            4 => ['direction' => 'down', 'start' => [3, 2], 'answer' => 'ASAP'],
             5 => ['direction' => 'down',   'start' => [1, 10], 'answer' => 'PARU'],
         ];
 
@@ -84,7 +95,7 @@ class TekaTekiSilangController extends Controller
             }
             // Kalau semua huruf benar, tambah skor 1
             if ($isAllCorrect) {
-                $skor += 10;
+                $skor += 40;
             }
         }
 
@@ -99,7 +110,7 @@ class TekaTekiSilangController extends Controller
         list($h, $m, $s) = explode(':', $waktuhitung);
         $waktuhitung = ($h * 3600) + ($m * 60) + $s;
         //total max waktu
-        $totaldetik = 300;
+        $totaldetik = 120;
         //waktu sisa
         $sisadetik = max(0, $totaldetik - $waktuhitung);
         //waktu benar
@@ -122,7 +133,7 @@ class TekaTekiSilangController extends Controller
         $questions = [
             1 => ['direction' => 'across', 'length' => 4, 'question' => 'Fenomena kabut tebal bercampur polusi'],
             2 => ['direction' => 'down', 'length' => 6, 'question' => 'Penyaring partikel udara'],
-            3 => ['direction' => 'across', 'length' => 10, 'question' => 'Alat ukur kualitas udara'],
+            3 => ['direction' => 'across', 'length' => 9, 'question' => 'Alat ukur kualitas udara'],
             4 => ['direction' => 'down', 'length' => 4, 'question' => 'Faktor Polusi'],
             5 => ['direction' => 'down', 'length' => 4, 'question' => 'Organ yang beresiko pada polusi'],
         ];
@@ -141,7 +152,7 @@ class TekaTekiSilangController extends Controller
         list($h, $m, $s) = explode(':', $waktuhitung);
         $waktuhitung = ($h * 3600) + ($m * 60) + $s;
 
-        $totaldetik = 300;
+        $totaldetik = 120;
         $sisadetik = max(0, $totaldetik - $waktuhitung);
         $waktusisa = gmdate("H:i:s", $sisadetik);
 

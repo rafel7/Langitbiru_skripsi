@@ -14,6 +14,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+     \URL::forceScheme('https');
+
         View::composer('*', function ($view) {
 
             $userId = Auth::id();  // ambil ID user yang login

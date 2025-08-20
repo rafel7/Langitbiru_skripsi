@@ -20,6 +20,9 @@
                 📊Kalau udah selesai main, jangan lupa kerjain Posttest ya, biar tahu seberapa jauh kamu berkembang.
                 </br>
                 ⭐Terakhir, kamu bisa cetak sertifikat di halaman dashboard. Keren kan?
+        		</br>
+        		</br>
+                Sebelum mulai, kamu bisa banget lihat halaman nilai untuk lihat temen-temen yang udah ngerjaiin!!
             </p>
         </div>
 

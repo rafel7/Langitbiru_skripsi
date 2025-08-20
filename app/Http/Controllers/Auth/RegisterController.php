@@ -112,7 +112,7 @@ class RegisterController extends Controller
 
         DB::table('nilai')->insert([
             'user_id'       => $user->id,
-            'waktu_game_2'  => '00:05:00',
+            'waktu_game_2'  => '00:02:00',
             'created_at'   => now(),
             'updated_at'   => now(),
         ]);

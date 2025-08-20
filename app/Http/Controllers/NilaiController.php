@@ -24,12 +24,12 @@ class NilaiController extends Controller
                 $game2 = $nilaiSaya->nilai_game_2 ?? 0;
 
                 // Logika Badge 2 (nilai)
-                if ($game1 >= 30 && $game2 >= 30) {
+                if ($game1 >= 120 && $game2 >= 120) {
                     $badgeValue = 1;
-                    if ($game1 >= 40 && $game2 >= 40) {
+                    if ($game1 >= 160 && $game2 >= 160) {
                         $badgeValue = 2;
                     }
-                    if ($game1 == 50 && $game2 == 50) {
+                    if ($game1 == 200 && $game2 == 200) {
                         $badgeValue = 3;
                     }
 
@@ -45,7 +45,7 @@ class NilaiController extends Controller
 
                 // Konversi batas waktu
                 $maks1 = 120; // detik
-                $maks2 = 300; // detik
+                $maks2 = 120; // detik
 
                 $persen1 = ($waktu1 / $maks1) * 100;
                 $persen2 = ($waktu2 / $maks2) * 100;
@@ -65,11 +65,16 @@ class NilaiController extends Controller
                     );
                 }
                 // Logika Badge 1 (waktu tonton video)
-                $waktuVideo = strtotime($nilaiSaya->waktu_video ?? '00:00:00') - strtotime('TODAY'); // detik
+                list($jam, $menit, $detik) = explode(':', $nilaiSaya->waktu_video ?? '00:00:00');
+                $waktuVideo = ($jam * 3600) + ($menit * 60) + $detik;
+
+
+
+                $waktuVideoSisa = 160 - $waktuVideo;
                 $maxVideoTime = 160; // 2 menit 40 detik
 
-                $persenVideo = ($waktuVideo / $maxVideoTime) * 100;
-
+                $persenVideo = ($waktuVideoSisa / $maxVideoTime) * 100;
+                $badge1 = 0;
                 if ($persenVideo >= 50) {
                     $badge1 = 1;
                     if ($persenVideo >= 65) {

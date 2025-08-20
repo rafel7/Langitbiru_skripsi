@@ -16,10 +16,12 @@
         <a href="{{ url('pembelajaran/video2') }}" class="btn btn-primary me-2">Back</a>
         <a href="{{ url('/slides/' . $next) }}" class="btn btn-primary">Next</a>
         @else
+        @if($statusPembelajaran != 3)
         <form action="{{ route('slides.selesai') }}" method="POST" class="d-inline">
             @csrf
             <button type="submit" class="btn btn-success">Selesai</button>
         </form>
+        @endif
 
         @endif
     </div>
@@ -41,7 +43,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
 
 <script>
-    const url = "{{ asset('slides/' . $filename) }}";
+   const url = "/slides/{{ $filename }}";
+
 
     let pdfDoc = null,
         pageNum = 1,

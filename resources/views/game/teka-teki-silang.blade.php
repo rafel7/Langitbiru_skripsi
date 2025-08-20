@@ -3,7 +3,7 @@
 @section('content')
 <div class="container text-center mt-5">
     <h2>Teka-Teki Silang</h2>
-    <div id="timer" class="mb-4 fs-5">Sisa Waktu: 5:00</div>
+    <div id="timer" class="mb-4 fs-5">Sisa Waktu: </div>
 
     <!-- FORM CEK JAWABAN -->
     <form method="POST" id="scoreForm" action="{{ route('game.teka-teki-silang.submit') }}">
@@ -85,7 +85,7 @@
         const seconds = remainingTime % 60;
         timer.textContent = `Sisa Waktu: ${minutes}:${seconds.toString().padStart(2, '0')}`;
 
-        const usedTime = 300 - remainingTime;
+        const usedTime = 120 - remainingTime;
         const usedMinutes = Math.floor(usedTime / 60);
         const usedSeconds = usedTime % 60;
 
@@ -102,7 +102,7 @@
         } else {
             clearInterval(countdown);
             alert("⏰ Waktu Habis!");
-            document.getElementById('scoreForm').submit();
+            document.querySelector('form[action="{{ route('game.teka-teki-silang.submit2') }}"]').submit();
         }
     }, 1000);
 </script>

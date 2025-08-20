@@ -18,6 +18,7 @@
                 @foreach ([
                 ['Nama Lengkap', $user->name],
                 ['Email', $user->email],
+                ['NIM',$user->nim],
                 ['Tanggal Bergabung', $user->created_at->format('d M Y')],
 
                 ] as [$label, $value])

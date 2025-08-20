@@ -28,7 +28,7 @@
 
 </div>
 
-<!-- Timer Script -->
+<!-- Timer Script 
 <script>
     let timeLeft = 160; // 2 menit 40 detik
     let timerInterval;
@@ -102,5 +102,5 @@
                 // window.location.href = "{{ url('/slides/materi1') }}";
             });
     });
-</script>
+</script>-->
 @endsection

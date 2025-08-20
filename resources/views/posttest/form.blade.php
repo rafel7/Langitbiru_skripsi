@@ -15,15 +15,35 @@
         @csrf
 
         @foreach ($questions as $question)
-        <div>
-            <br>
-            <p>{{ $loop->iteration }}. {{ $question['question'] }}</p>
-            @for ($i = 1; $i <= 5; $i++)
-                <label>
-                <input type="radio" name="question_{{ $question['id'] }}" value="{{ $i }}" required>
-                {{ $i }}
+        <div class="mb-4">
+            <p><strong>{{ $loop->iteration }}. {{ $question['question'] }}</strong></p>
+
+            @if ($question['type'] === 'pg')
+            @foreach ($question['options'] as $key => $option)
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="question_{{ $question['id'] }}" value="{{ $key }}" required>
+                <label class="form-check-label">
+                    {{ strtoupper($key) }}. {{ $option }}
                 </label>
-                @endfor
+            </div>
+            @endforeach
+
+            @elseif ($question['type'] === 'likert')
+            <div class="d-flex align-items-center flex-wrap">
+                <span class="me-3 text-muted" style="min-width: 150px;">Sangat Tidak Setuju</span>
+
+                <div class="d-flex justify-content-center">
+                    @for ($i = 1; $i <= 5; $i++)
+                        <label class="mx-1 text-center">
+                        <input type="radio" name="question_{{ $question['id'] }}" value="{{ $i }}" required>
+                        <div>{{ $i }}</div>
+                        </label>
+                        @endfor
+                </div>
+
+                <span class="ms-3 text-muted" style="min-width: 150px;">Sangat Setuju</span>
+            </div>
+            @endif
         </div>
         @endforeach
 

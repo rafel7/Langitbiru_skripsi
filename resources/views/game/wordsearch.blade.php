@@ -4,7 +4,29 @@
 <div class="container d-flex justify-content-center align-items-center flex-column mt-5">
 
     <h2>Game Cari Kata!</h2>
-    <h3 id="textTimer">Waktu 2 Menit</h3>
+    <div id="textTimer">
+        </br>
+        <h3>Game Cari Kata</h3>
+        <li>klik tombol "mulai" pada halaman saat ini untuk memulai game cari kata</li>
+        <li>Cari kata dari pertanyaan di bawah</li>
+        <li>Kata bisa tersembunyi secara mendatar,menurun, atau diagonal</li>
+        <li>Klik dan drag kata jika kamu menemukannya</li>
+        <li>Jawaban benar akan dihightlight dan muncul pada kolom jawaban</li>
+        <li>Waktu 2 menit</li>
+        <li>Klik "Submit Nilai" jika selesai dan melanjutkan game selanjutnya</li>
+
+        </br>
+        <h3>Game Teka Teki Silang</h3>
+        <li>Cari jawaban dari pertanyaan di bawah</li>
+        <li>Jawaban benar akan dihighlight warna hijau pada gambar</li>
+        <li>Jawaban salah atau belum terisi akan dihightlight warna merah</li>
+        <li>Tekan "enter" atau klik "cek jawaban" untuk mengecek jawaban yang diisi</li>
+        <li>Waktu 2 menit</li>
+        <li>Klik "Selesai" jika selesai dan melanjutkan game selanjutnya</li>
+
+        </br>
+
+    </div>
 
     <button id="startButton" class="btn btn-primary mb-4">Mulai</button>
 
@@ -155,9 +177,8 @@
 
                 if (targetWords.includes(word) && !foundWords.includes(word)) {
                     foundWords.push(word);
-                    alert(`✅ Kamu menemukan: ${word}`);
                     markWordAsFound(word);
-                    tampilkanJawabanKeInput(word); // TAMBAHAN DI SINI
+                    tampilkanJawabanKeInput(word); 
                     updateScore();
                 }
 
@@ -176,7 +197,7 @@
         });
 
         function updateScore() {
-            let nilai = foundWords.length * 10;
+            let nilai = foundWords.length * 40;
             document.getElementById('nilaiInput').value = nilai;
 
             if (nilai === 100) {

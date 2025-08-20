@@ -13,12 +13,12 @@ class NilaiExport implements FromCollection, WithHeadings
     {
         return DB::table('nilai')
             ->join('users', 'nilai.user_id', '=', 'users.id')
-            ->select('users.nim', 'nilai.nilai_pretest', 'nilai.nilai_posttest', 'nilai.nilai_game_1', 'nilai.nilai_game_2')
+            ->select('users.nim', 'nilai.nilai_pretest', 'nilai.nilai_posttest', 'nilai.nilai_game_1', 'nilai.nilai_game_2', 'nilai.t_nilai_game_1', 'nilai.t_nilai_game_2')
             ->get();
     }
 
     public function headings(): array
     {
-        return ['NIM', 'Pretest', 'Posttest', 'Game 1', 'Game 2'];
+        return ['NIM', 'Pretest', 'Posttest', 'Game 1', 'Game 2', 'Totla Game 1', 'Total Game 2'];
     }
 }
