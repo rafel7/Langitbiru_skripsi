@@ -6,4 +6,4 @@
                             yang ditujukan untuk mengevaluasi kesadaran lingkungan 
                             pada lingkup mahasiswa Politeknik Statistika STIS.
 <br>**Struktur folder project**   : <br>source code : berisi code program artifak
-                            <br>Dokumen     : berisi buku panduan dan data survei evaluasi(masih proses upload)
+                            <br>Dokumen     : berisi buku panduan dan data survei evaluasi pretest, posttest, dan SUS
